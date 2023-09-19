@@ -3,26 +3,14 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Map',
-      home: MapScreen(),
-    );
-  }
+  State<HomePage> createState() => _HomePageState();
 }
 
-class MapScreen extends StatefulWidget {
-  const MapScreen();
-
-  @override
-  _MapScreenState createState() => _MapScreenState();
-}
-
-class _MapScreenState extends State<MapScreen> {
+class _HomePageState extends State<HomePage> {
   late LatLng  _userLocation; // Default location
   GeolocatorPlatform geolocator = GeolocatorPlatform.instance;
   int _selectedIndex = 0; // Index for the selected bottom navigation bar item
@@ -75,12 +63,10 @@ class _MapScreenState extends State<MapScreen> {
                       width: 30.0,
                       height: 30.0,
                       point: _userLocation,
-                      builder: (ctx) => Container(
-                        child: const Icon(
-                          Icons.location_pin,
-                          color: Colors.blue,
-                          size: 30.0,
-                        ),
+                      builder: (ctx) => const Icon(
+                        Icons.location_pin,
+                        color: Colors.blue,
+                        size: 30.0,
                       ),
                     ),
                   ],
