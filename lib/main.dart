@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'pages/homepage.dart';
+import 'pages/helpPage.dart';
+import 'pages/searchPage.dart';
+import 'pages/chatPage.dart';
+import 'pages/agencyInfoPage.dart';
 
 void main() {
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -15,10 +18,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/home',
       routes: {
         '/home': (context) => const HomePage(),
-        // '/search': (context) => const Search(),
-        // '/chat': (context) => const Chat(),
-        // '/agencydetail':(context) => const AgencyDetail(),
-        // '/help':(context) => const Help()
+        '/search': (context) => const Search(),
+        '/chat': (context) => const Chat(),
+        '/info':(context) => const AgencyInfo(),
+        '/help':(context) => const Help()
       },
     ) ;
   }

@@ -4,7 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage();
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +26,6 @@ class _MapScreenState extends State<MapScreen> {
   late LatLng  _userLocation; // Default location
   GeolocatorPlatform geolocator = GeolocatorPlatform.instance;
   int _selectedIndex = 0; // Index for the selected bottom navigation bar item
-
-  // Define a list of pages (screens) corresponding to each bottom navigation bar item
-  final List<Widget> _pages = [
-    const MapPage(),
-    const EmergencyPage(),
-    const ProfilePage(),
-  ];
 
   @override
   void initState() {
@@ -102,10 +95,6 @@ class _MapScreenState extends State<MapScreen> {
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.warning),
-                label: 'Emergency',
-              ),
-              BottomNavigationBarItem(
                 icon: Icon(Icons.person),
                 label: 'Profile',
               ),
@@ -115,43 +104,6 @@ class _MapScreenState extends State<MapScreen> {
           ),
         ],
       ),
-    );
-  }
-}
-
-// Define your MapPage, EmergencyPage, and ProfilePage widgets here
-class MapPage extends StatelessWidget {
-  const MapPage();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Map Screen'),
-      ),
-      // You can uncomment and add your map code here.
-    );
-  }
-}
-
-class EmergencyPage extends StatelessWidget {
-  const EmergencyPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Emergency Page'),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Profile Page'),
     );
   }
 }

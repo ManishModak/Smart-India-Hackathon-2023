@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AgencyDetail extends StatelessWidget {
-  const AgencyDetail({super.key});
+class AgencyInfo extends StatelessWidget {
+  const AgencyInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
