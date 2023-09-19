@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'pages/homepage.dart';
 
 void main() {
-  runApp(const Smart-India-Hackathon-2023());
+  runApp(const MyApp());
 }
 
 
-class Smart-India-Hackathon-2023 extends StatelessWidget {
-  const Smart-India-Hackathon-2023({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
