@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:smart_india_hackathon/pages/agencydetail_Page.dart';
-import 'package:smart_india_hackathon/pages/helpPage.dart';
-import 'package:smart_india_hackathon/pages/homePage.dart';
-import 'package:smart_india_hackathon/pages/searchPage.dart';
-import 'package:smart_india_hackathon/pages/chatPage.dart';
+import 'pages/homepage.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const trail12());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
+class Smart-India-Hackathon-2023 extends StatelessWidget {
+  const Smart-India-Hackathon-2023({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: '/home',
       routes: {
-        '/home': (context) => const Home(),
-        '/search': (context) => const Search(),
-        '/chat': (context) => const Chat(),
-        '/agencydetail':(context) => const AgencyDetail(),
-        '/help':(context) => const Help()
+        '/home': (context) => const HomePage(),
+        // '/search': (context) => const Search(),
+        // '/chat': (context) => const Chat(),
+        // '/agencydetail':(context) => const AgencyDetail(),
+        // '/help':(context) => const Help()
       },
     ) ;
   }
 }
-
