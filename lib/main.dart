@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'pages/homepage.dart';
 
 void main() {
-  runApp(const trail12());
+  runApp(const Smart-India-Hackathon-2023());
 }
 
 
