@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'c';
+import 'package:trail12/commons/commonCode.dart' ;
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -30,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.white,
                   fontSize: 12
                 ),
-                decoration: ,
+                decoration: textInputDecoration.copyWith(hintText: "Agency Name"),
                 validator: (val) => val == null || val.isEmpty ? "Enter The Agency Name" : null,
                 controller: agencyName,
               ),

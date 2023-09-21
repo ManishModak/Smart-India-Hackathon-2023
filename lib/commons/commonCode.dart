@@ -12,4 +12,4 @@ InputDecoration textInputDecoration = InputDecoration(
       borderSide: const BorderSide(color: Colors.white),
       borderRadius: BorderRadius.circular(12)
   ),
-)
+) ;
