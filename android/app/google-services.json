@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "408624907995",
+    "project_id": "smart-india-hackathon-20-b7412",
+    "storage_bucket": "smart-india-hackathon-20-b7412.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408624907995:android:c37c03153a263dc182aefe",
+        "android_client_info": {
+          "package_name": "com.example.trail12"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBD7fBYS2lWODnEr6m5WuGPsiE6J15X0zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

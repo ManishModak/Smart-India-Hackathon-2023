@@ -24,7 +24,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/home',
+
+      theme: ThemeData.dark(),
+
+      initialRoute: '/login',
       routes: {
         '/home': (context) => const HomePage(),
         '/search': (context) => const Search(),

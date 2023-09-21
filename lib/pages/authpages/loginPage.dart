@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'c';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,11 +10,39 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  late String agencyName ;
-  late String agencyPassword ;
+  final _formkey = GlobalKey<FormState>();
+  final TextEditingController agencyName = TextEditingController() ;
+  final TextEditingController agencyPassword = TextEditingController() ;
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+
+    return Scaffold(
+      body: Form(
+        key: _formkey,
+        child: Column(
+          children: [
+            const SizedBox(height:150),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12
+                ),
+                decoration: ,
+                validator: (val) => val == null || val.isEmpty ? "Enter The Agency Name" : null,
+                controller: agencyName,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
