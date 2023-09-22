@@ -9,6 +9,8 @@ import 'package:smart_india_hackathon/pages/authpages/loginPage.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -34,7 +36,8 @@ class MyApp extends StatelessWidget {
         '/search': (context) => const Search(),
         '/chat': (context) => const Chat(),
         '/agencydetail':(context) => const AgencyDetail(),
-        '/help':(context) => const Help()
+        '/help':(context) => const Help(),
+        '/Nav':(context) => const Nav()
       },
     ) ;
   }
