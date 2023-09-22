@@ -11,14 +11,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late LatLng  _userLocation; // Default location
+  late LatLng  _userLocation = const LatLng(0, 0); // Default location
   GeolocatorPlatform geolocator = GeolocatorPlatform.instance;
   int _selectedIndex = 0; // Index for the selected bottom navigation bar item
 
   @override
   void initState() {
-    super.initState();
     _initUserLocation();
+    super.initState();
   }
 
   Future<void> _initUserLocation() async {
@@ -40,6 +40,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    if(_userLocation == const LatLng(0, 0)) {
+      return const Center(child: CircularProgressIndicator(),) ;
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home Page'),
