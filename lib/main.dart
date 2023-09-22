@@ -4,8 +4,14 @@ import 'package:smart_india_hackathon/pages/helpPage.dart';
 import 'package:smart_india_hackathon/pages/homePage.dart';
 import 'package:smart_india_hackathon/pages/searchPage.dart';
 import 'package:smart_india_hackathon/pages/chatPage.dart';
+import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

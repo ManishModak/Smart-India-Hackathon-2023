@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1073419960822",
+    "project_id": "smart-india-hackathon-20-c6820",
+    "storage_bucket": "smart-india-hackathon-20-c6820.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073419960822:android:669a9a827a501e841747d7",
+        "android_client_info": {
+          "package_name": "com.innovision.smart_india_hackathon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAz3pH5ElGKwBGP8ggp04t9IYiqFSfmWIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
