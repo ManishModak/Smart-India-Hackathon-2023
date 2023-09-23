@@ -49,4 +49,6 @@ class LoginDatabase {
     }
     return validationStatus;
   }
+
+  //Future<bool> updatePass
 }
