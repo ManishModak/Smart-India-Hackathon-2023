@@ -7,7 +7,7 @@ class AgencyDetail extends StatelessWidget {
   final String email;
   final String about;
 
-  AgencyDetail({
+  const AgencyDetail({super.key,
     required this.agencyName,
     required this.location,
     required this.phone,
@@ -19,7 +19,7 @@ class AgencyDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agency Details'),
+        title: const Text('Agency Details'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -71,7 +71,7 @@ class AgencyDetail extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 44),
+            const SizedBox(height: 44),
             const Center(
               child: Text(
                 'About the Agency',
