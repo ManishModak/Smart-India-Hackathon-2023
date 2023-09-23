@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_india_hackathon/pages/agencydetail_Page.dart';
 import 'package:smart_india_hackathon/pages/authpages/registerPage.dart';
@@ -5,7 +6,6 @@ import 'package:smart_india_hackathon/pages/helpPage.dart';
 import 'package:smart_india_hackathon/pages/homePage.dart';
 import 'package:smart_india_hackathon/pages/searchPage.dart';
 import 'package:smart_india_hackathon/pages/chatPage.dart';
-import 'package:smart_india_hackathon/pages/navbar.dart';
 import 'package:smart_india_hackathon/pages/authpages/loginPage.dart';
 import 'package:smart_india_hackathon/pages/navbar.dart';
 import 'firebase_options.dart';
@@ -19,8 +19,11 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  //LoginDatabase loginDatabase = LoginDatabase();
-  //loginDatabase.addUser(name: "Manish", password: "6969");
+  LoginDatabase loginDatabase = LoginDatabase();
+  bool valid = await loginDatabase.isValidUser(name: "Manish", pass: "6969", id: '478B7O2fyHPAVqXAySDt');
+  if (kDebugMode){
+    print(valid);
+  }
   runApp(const MyApp());
 }
 
