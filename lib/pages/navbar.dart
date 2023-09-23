@@ -22,8 +22,9 @@ class _NavState extends State<Nav> {
   int currentIndex = 2;
 
   List<IconData> navigationIcons = [
-    Icons.question_answer_outlined,
-    FontAwesomeIcons.user,
+
+    FontAwesomeIcons.circleQuestion,
+    FontAwesomeIcons.folder,
     FontAwesomeIcons.house,
     FontAwesomeIcons.magnifyingGlass,
     FontAwesomeIcons.comment,
