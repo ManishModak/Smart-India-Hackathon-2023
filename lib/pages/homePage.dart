@@ -13,8 +13,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late LatLng _userLocation = const LatLng(0, 0); // Default location
-  GeolocatorPlatform geolocator = GeolocatorPlatform.instance;
-  int _selectedIndex = 0;
+  GeolocatorPlatform geoLocator = GeolocatorPlatform.instance;
+
   final List<Marker> _markers = [];
   @override
   void initState() {
@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _initUserLocation() async {
-    Position position = await geolocator.getCurrentPosition(
+    Position position = await geoLocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
 
@@ -35,20 +35,21 @@ class _HomePageState extends State<HomePage> {
 
   void _initMarkers() async {
     FirebaseFirestore.instance.collection('locations').get().then((querySnapshot) async {
-      Position userPosition = await geolocator.getCurrentPosition(
+      Position userPosition = await geoLocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
       double maxDistance = 1000; // 1 km in meters
 
-      querySnapshot.docs.forEach((doc) async {
+      querySnapshot.docs.forEach((doc) {
         double latitude = doc['latitude'];
         double longitude = doc['longitude'];
-        double distance = await geolocator.distanceBetween(
+        double distance = geoLocator.distanceBetween(
           userPosition.latitude,
           userPosition.longitude,
           latitude,
           longitude,
         );
+
         if (distance <= maxDistance) {
           setState(() {
             _markers.add(
@@ -56,16 +57,14 @@ class _HomePageState extends State<HomePage> {
                 width: 30.0,
                 height: 30.0,
                 point: LatLng(latitude, longitude),
-                builder: (ctx) => Container(
-                  child: IconButton(
-                    icon: Icon(Icons.location_on),
-                    color: Colors.red,
-                    iconSize: 30.0,
-                    onPressed: () {
-                      // Handle marker tap here
-                      _showMarkerPopup('Marker 1');
-                    },
-                  ),
+                builder: (ctx) => IconButton(
+                  icon: const Icon(Icons.location_on),
+                  color: Colors.red,
+                  iconSize: 30.0,
+                  onPressed: () {
+                    // Handle marker tap here
+                    _showMarkerPopup('Marker 1');
+                  },
                 ),
               ),
             );
@@ -83,25 +82,18 @@ class _HomePageState extends State<HomePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(markerTitle),
-          content: Text("This is a custom marker popup."),
+          content: const Text("This is a custom marker popup."),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Close'),
+              child: const Text('Close'),
             ),
           ],
         );
       },
     );
-  }
-
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
   }
 
   @override
