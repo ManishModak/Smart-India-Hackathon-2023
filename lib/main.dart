@@ -5,6 +5,7 @@ import 'package:smart_india_hackathon/pages/helpPage.dart';
 import 'package:smart_india_hackathon/pages/homePage.dart';
 import 'package:smart_india_hackathon/pages/searchPage.dart';
 import 'package:smart_india_hackathon/pages/chatPage.dart';
+import 'package:smart_india_hackathon/pages/navbar.dart';
 import 'package:smart_india_hackathon/pages/authpages/loginPage.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,14 +29,14 @@ class MyApp extends StatelessWidget {
 
       theme: ThemeData.dark(),
 
-      initialRoute: '/login',
+      initialRoute: '/Nav',
       routes: {
         '/register': (context) => const RegisterPage(),
         '/login': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
         '/search': (context) => const Search(),
         '/chat': (context) => const Chat(),
-        '/agencydetail':(context) => const AgencyDetail(),
+        //'/agencydetail':(context) => const AgencyDetail(),
         '/help':(context) => const Help(),
         '/Nav':(context) => const Nav()
       },
