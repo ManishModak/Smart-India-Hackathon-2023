@@ -15,17 +15,55 @@ class LoginDatabase {
     });
   }
 
-  Future<bool> isValidUser({required String name, required String pass, required String id}) async {
-    QuerySnapshot Coll_ref = await _firestore.collection("Users").get();
+  Future<bool> isValidUser({required String id, required String pass}) async {
 
-    for (var doc in Coll_ref.docs){
-      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    CollectionReference collectionReference = _firestore.collection("Users");
+    DocumentSnapshot documentSnapshot = await collectionReference.doc(id).get();
 
-      if( data['name'] == name && data['password'] == pass && data['id'] == id){
+    if (documentSnapshot.exists) {
+
+      Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+
+      if (data["password"] == pass) {
         return true;
       }
+      else {
+        return false;
+      }
     }
-    return false;
+    else {
+      return false;
+    }
   }
+
+
+  /// Return values meaning:
+  /// 1- Deleted Successfully
+  /// 2- Password is wrong
+  /// 3- User id is wrong
+
+  Future<int> deleteUser({required String id, required String pass}) async {
+
+    CollectionReference collectionReference = _firestore.collection("Users");
+    DocumentSnapshot documentSnapshot = await collectionReference.doc(id).get();
+
+    if (documentSnapshot.exists) {
+
+      Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+
+      if (data["password"] == pass) {
+        await collectionReference.doc(id).delete();
+        return 1;
+      }
+      else {
+        return 2;
+      }
+    }
+    else {
+      return 3;
+    }
+  }
+
+
 
 }
