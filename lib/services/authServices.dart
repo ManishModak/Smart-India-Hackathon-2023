@@ -4,13 +4,15 @@ class LoginDatabase {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> addUser({required String name, required String password}) async {
-    DocumentReference doc = _firestore.collection("Users").doc();
-    await _firestore.collection("Users").doc(doc.id).set({
-      "name" : name,
-      "password" : password,
-      "id": doc.id
+  Future<bool> addUser({required String id, required String pass}) async {
+
+    await _firestore.collection("Users").doc(id).set({
+      "id" : id,
+      "password" : pass
     });
+
+    if (await _isValidID(id: id)) { return true; }
+    else { return false; }
   }
 
   Future<bool> _isValidID({required String id}) async {

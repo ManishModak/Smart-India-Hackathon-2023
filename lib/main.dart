@@ -20,6 +20,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   LoginDatabase loginDatabase = LoginDatabase();
+  int valid = await loginDatabase.isValidUser(id: 'U65', pass: '665');
   //int valid = await loginDatabase.deleteUser(id: 'U65', pass: "wdwdwd");
   if (kDebugMode){
     print(valid);
