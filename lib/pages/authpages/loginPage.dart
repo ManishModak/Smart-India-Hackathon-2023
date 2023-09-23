@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_india_hackathon/commons/commonCode.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
+import 'package:smart_india_hackathon/commons/loading.dart';
+import 'package:smart_india_hackathon/services/authServices.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,26 +13,54 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+  LoginDatabase loginDatabase = LoginDatabase();
+  bool loading = false ;
+  String error = '' ;
+
   final formkey = GlobalKey<FormState>() ;
-  TextEditingController agencyName = TextEditingController();
+  TextEditingController agencyId = TextEditingController();
   TextEditingController agencyPass = TextEditingController();
 
   final secureStorage = const FlutterSecureStorage();
 
   void saveLoginInfo() async{
-    await secureStorage.write(key: "AgencyName", value: agencyName.text);
+    await secureStorage.write(key: "AgencyId", value: agencyId.text);
     await secureStorage.write(key: "Password", value: agencyPass.text);
     await secureStorage.write(key: "RememberMe", value: "true");
   }
 
-  void retrieveLoginInfo() async{
-    final password =  await secureStorage.read(key: 'Password');
-    final name = await secureStorage.read(key: "AgencyName");
+  void nextPage () {
+    Navigator.pushReplacementNamed(context,"/Nav",arguments: {
+      'agencyId': agencyId.text
+    });
+  }
 
-    if (password != null && name != null) {
-      agencyPass.text = password;
-      agencyName.text = name;
+  void agencyLogin() async{
+    if(formkey.currentState!.validate()) {
+      setState(() {
+        loading = true ;
+      });
+      int valid = await loginDatabase.isValidUser(id: agencyId.text, pass: agencyPass.text) ;
+      if(valid == 2){
+        setState(() {
+          loading = false ;
+          error = "Wrong Password";
+        });
+      }
+      else if(valid == 3) {
+        setState(() {
+          loading = false ;
+          error = "Wrong Id";
+        });
+      }
+      else{
+        nextPage();
+      }
     }
+  }
+
+  void retrieveLoginInfo() {
+
   }
 
   @override
@@ -42,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? const loadingPage() : Scaffold(
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal:15,vertical:200),
@@ -57,9 +86,9 @@ class _LoginPageState extends State<LoginPage> {
                     fontSize: 20,
                     letterSpacing: 1.25
                   ),
-                  decoration: textInputDecoration.copyWith(hintText: "Agency Name"),
-                  validator: (val) => val == null || val.isEmpty ? "Enter Agency Name" : null,
-                  controller: agencyName,
+                  decoration: textInputDecoration.copyWith(hintText: "Agency Id"),
+                  validator: (val) => val == null || val.isEmpty ? "Enter Agency Id" : null,
+                  controller: agencyId,
                 ),
                 const SizedBox(height: 15),
                 TextFormField(
@@ -72,7 +101,9 @@ class _LoginPageState extends State<LoginPage> {
                   validator: (val) => val == null || val.isEmpty ? "Enter Agency Password" : null ,
                   controller: agencyPass,
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 15),
+                Center(child: Text(error,style: const TextStyle(color: Colors.red,letterSpacing: 1.25,fontSize: 15),)) ,
+                const SizedBox(height: 15),
                 Container(
                   height: 50,
                   decoration: BoxDecoration(
@@ -84,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                       backgroundColor: Colors.transparent,
                       elevation: 0
                     ),
-                    onPressed: saveLoginInfo,
+                    onPressed:agencyLogin ,
                     child: const Center(
                       child: Text(
                         "LOGIN",
@@ -108,15 +139,22 @@ class _LoginPageState extends State<LoginPage> {
                   height: 50,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: Colors.teal
+                      color: Colors.cyan,
                   ),
-                  child: const Center(
-                    child: Text(
-                      "REGISTER",
-                      style: TextStyle(
-                          fontSize: 20,
-                          letterSpacing: 1.25,
-                          color: Colors.white
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.pushNamed(context, "/register") ,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:Colors.transparent,
+                      elevation: 0,
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "REGISTER",
+                        style: TextStyle(
+                            fontSize: 20,
+                            letterSpacing: 1.25,
+                            color: Colors.white
+                        ),
                       ),
                     ),
                   )

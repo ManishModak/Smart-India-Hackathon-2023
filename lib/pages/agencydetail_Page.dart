@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-class AgencyDetail extends StatelessWidget {
-  final String agencyName;
-  final String location;
-  final String phone;
-  final String email;
-  final String about;
+class AgencyDetail extends StatefulWidget {
+  const AgencyDetail({super.key});
 
-  const AgencyDetail({super.key,
-    required this.agencyName,
-    required this.location,
-    required this.phone,
-    required this.email,
-    required this.about,
-  });
+  @override
+  State<AgencyDetail> createState() => _AgencyDetailState();
+}
+
+class _AgencyDetailState extends State<AgencyDetail> {
+
+  TextEditingController agencyName = TextEditingController();
+  TextEditingController location = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController about = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class AgencyDetail extends StatelessWidget {
           children: <Widget>[
             Center(
               child: Text(
-                agencyName,
+                agencyName.text,
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -84,7 +84,7 @@ class AgencyDetail extends StatelessWidget {
             const SizedBox(height: 8),
             Center(
               child: Text(
-                about,
+                about.text,
                 style: const TextStyle(
                   fontSize: 16,
                 ),
@@ -96,3 +96,4 @@ class AgencyDetail extends StatelessWidget {
     );
   }
 }
+
