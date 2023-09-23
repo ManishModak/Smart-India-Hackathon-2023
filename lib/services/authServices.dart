@@ -1,5 +1,3 @@
-import "dart:html";
-
 import "package:cloud_firestore/cloud_firestore.dart";
 
 class LoginDatabase {
@@ -15,27 +13,26 @@ class LoginDatabase {
     });
   }
 
-  Future<bool> isValidUser({required String id, required String pass}) async {
-
-    CollectionReference collectionReference = _firestore.collection("Users");
-    DocumentSnapshot documentSnapshot = await collectionReference.doc(id).get();
-
-    if (documentSnapshot.exists) {
-
-      Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
-
-      if (data["password"] == pass) {
-        return true;
-      }
-      else {
-        return false;
-      }
-    }
-    else {
-      return false;
-    }
+  Future<bool> _isValidID({required String id}) async {
+    return (await _firestore.collection("Users").doc(id).get()).exists;
   }
 
+  Future<bool> _isValidPass({required String id, required String pass}) async {
+    DocumentSnapshot documentSnapshot = await _firestore.collection("Users").doc(id).get();
+    Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+    return (data["password"] == pass);
+  }
+
+  /// Return values meaning:
+  /// 1- Login Successfully
+  /// 2- Password is wrong
+  /// 3- User id is wrong
+
+  Future<int> isValidUser({required String id, required String pass}) async {
+    if (!(await _isValidID(id: id))) { return 3; }
+    else if (!(await _isValidPass(id: id, pass: pass))) {return 2; }
+    else { return 1; }
+  }
 
   /// Return values meaning:
   /// 1- Deleted Successfully
@@ -43,27 +40,11 @@ class LoginDatabase {
   /// 3- User id is wrong
 
   Future<int> deleteUser({required String id, required String pass}) async {
+    int validationStatus = await isValidUser(id: id, pass: pass);
 
-    CollectionReference collectionReference = _firestore.collection("Users");
-    DocumentSnapshot documentSnapshot = await collectionReference.doc(id).get();
-
-    if (documentSnapshot.exists) {
-
-      Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
-
-      if (data["password"] == pass) {
-        await collectionReference.doc(id).delete();
-        return 1;
-      }
-      else {
-        return 2;
-      }
+    if (validationStatus == 1) {
+      await _firestore.collection("Users").doc(id).delete();
     }
-    else {
-      return 3;
-    }
+    return validationStatus;
   }
-
-
-
 }
