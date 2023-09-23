@@ -12,8 +12,8 @@ class LoginDatabase {
     await _firestore.collection("Users").doc().set(data);
   }
 
-  Future<bool> isValidUser({}) async {
+  //Future<bool> isValidUser({}) async {
 
-  }
+  //}
 
 }

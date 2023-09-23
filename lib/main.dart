@@ -18,8 +18,8 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  LoginDatabase loginDatabase = LoginDatabase();
-  loginDatabase.addUser(name: "Manish", password: "6969");
+  //LoginDatabase loginDatabase = LoginDatabase();
+  //loginDatabase.addUser(name: "Manish", password: "6969");
   runApp(const MyApp());
 }
 
