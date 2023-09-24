@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/search': (context) => const Search(),
         '/chat': (context) => const Chat(),
-        //'/agencydetail':(context) => const AgencyDetail(),
+        '/agencydetail':(context) => AgencyDetailPage(String as String),
         '/help':(context) => const Help(),
         '/Nav':(context) => const Nav()
       },
