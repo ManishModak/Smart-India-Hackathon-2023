@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:smart_india_hackathon/pages/agencydetail_Page.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:smart_india_hackathon/services/agencyServices.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,6 +16,42 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late LatLng _userLocation = const LatLng(0, 0);
   GeolocatorPlatform geoLocator = GeolocatorPlatform.instance;
+  AgencyDatabase agencyDatabase = AgencyDatabase();
+
+  Future<Widget> getDetails(String id) async {
+    Map<String, dynamic> data = await agencyDatabase.getAgency(id: id);
+    return AlertDialog(
+      title: Text(data["name"]),
+      content: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Text('Address:'),
+            Text(data["address"]),
+            const SizedBox(height: 10),
+            const Text('Description:'),
+            Text(data["description"]),
+            const SizedBox(height: 10),
+            const Text('ID:'),
+            Text(data["id"]),
+            const SizedBox(height: 10),
+            const Text('Location:'),
+            Text(data["location"]),
+            const SizedBox(height: 10),
+            const Text('Name:'),
+            Text(data["name"]),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('Close'),
+        ),
+      ],
+    );
+  }
 
   final List<Marker> _markers = [];
   @override
