@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AgencyDetail extends StatefulWidget {
-  const AgencyDetail({super.key});
+class ResourcesPage extends StatefulWidget {
+  const ResourcesPage({super.key});
 
   @override
-  State<AgencyDetail> createState() => _AgencyDetailState();
+  State<ResourcesPage> createState() => _ResourcesPageState();
 }
 
-class _AgencyDetailState extends State<AgencyDetail> {
+class _ResourcesPageState extends State<ResourcesPage> {
 
   TextEditingController agencyName = TextEditingController();
   TextEditingController location = TextEditingController();
