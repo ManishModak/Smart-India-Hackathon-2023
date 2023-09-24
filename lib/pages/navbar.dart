@@ -29,13 +29,12 @@ class _NavState extends State<Nav> {
     FontAwesomeIcons.circleQuestion,
   ];
 
-  late final String agencyId ;
-  Map data = {} ;
+  late final String agencyId;
+  Map data = {};
 
   @override
   Widget build(BuildContext context) {
-
-    data = ModalRoute.of(context)!.settings.arguments as Map ;
+    data = ModalRoute.of(context)!.settings.arguments as Map;
 
     screenHeight = MediaQuery.of(context).size.height;
     screeenWidth = MediaQuery.of(context).size.width;
@@ -49,61 +48,72 @@ class _NavState extends State<Nav> {
     ];
 
     return Scaffold(
-        body: IndexedStack(
-          index: currentIndex,
-          children: screens,
-        ),
-
-        bottomNavigationBar: Container(
-          height: 70,
-          margin: const EdgeInsets.only(
-            left: 12,
-            right: 12,
-            bottom: 24,
-          ),
-          decoration: const BoxDecoration(
-            color: Colors.white12,
-            borderRadius: BorderRadius.all(Radius.circular(40)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                blurRadius: 10,
-                offset: Offset(2,2),
-              ),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(40)),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for(int i = 0 ;i<navigationIcons.length;i++)...<Expanded>{
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          currentIndex = i;
-                        });
-                      },
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              navigationIcons[i],
-                              color: i == currentIndex ? primary : Colors.teal,
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  )
-                }
-              ],
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: IndexedStack(
+              index: currentIndex,
+              children: screens,
             ),
           ),
-        )
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              height: 70,
+              margin: const EdgeInsets.only(
+                left: 12,
+                right: 12,
+                bottom: 24,
+              ),
+              decoration: const BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.all(Radius.circular(40)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black38,
+                    blurRadius: 10,
+                    offset: Offset(2, 2),
+                  ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(40)),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (int i = 0; i < navigationIcons.length; i++) ...<Expanded>{
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              currentIndex = i;
+                            });
+                          },
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  navigationIcons[i],
+                                  color:
+                                  i == currentIndex ? primary : Colors.teal,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    }
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
