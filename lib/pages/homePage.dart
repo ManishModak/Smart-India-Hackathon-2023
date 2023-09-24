@@ -5,6 +5,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:smart_india_hackathon/services/agencyServices.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -104,9 +105,19 @@ class _HomePageState extends State<HomePage> {
       print("Error fetching Firestore data: $error");
     }
   }
+  void _makePhoneCall(String phoneNumber) async {
+    final url = 'tel:$phoneNumber';
+    if (await canLaunchUrl(url as Uri)) {
+      await launchUrl(url as Uri);
+    } else {
+      // Handle error: Could not launch the phone app.
+      // You can display an error message to the user.
+    }
+  }
 
   void _showMarkerPopup(String markerTitle, String id) async {
     Map<String, dynamic> data = await agencyDatabase.getAgency(id: id);
+    String phoneNumber = data["phone"]; // Replace 'phone' with the actual field name in your database
 
     showDialog(
       context: context,
@@ -140,11 +151,19 @@ class _HomePageState extends State<HomePage> {
               },
               child: Text('Close'),
             ),
+            ElevatedButton.icon(
+              onPressed: () {
+                _makePhoneCall(phoneNumber);
+              },
+              icon: Icon(Icons.call),
+              label: Text('Call'),
+            ),
           ],
         );
       },
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
