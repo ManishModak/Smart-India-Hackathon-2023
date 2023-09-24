@@ -1,7 +1,4 @@
 import 'dart:math';
-
-import 'package:flutter/foundation.dart';
-
 import 'authServices.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -50,7 +47,7 @@ class AgencyDatabase {
     return id;
   }
 
-  Future<void> addAgency({required String pass,
+  Future<String> addAgency({required String pass,
     required String name, required String type,
     required String address, required String location, required locationID,
     required String description}) async {
@@ -66,6 +63,7 @@ class AgencyDatabase {
     });
 
     _loginDatabase.addUser(id: id, pass: pass);
+    return id;
   }
 
 
