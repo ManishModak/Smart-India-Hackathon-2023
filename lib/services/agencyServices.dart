@@ -52,7 +52,7 @@ class AgencyDatabase {
 
   Future<void> addAgency({required String pass,
     required String name, required String type,
-    required String address, required String location, required locationID,
+    required String address, required String location,
     required String description}) async {
 
     String id = await _generateID();
