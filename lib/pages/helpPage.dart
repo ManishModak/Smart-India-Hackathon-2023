@@ -82,32 +82,28 @@ class Help extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                child: ElevatedButton(
-                  onPressed: () {
+              ElevatedButton(
+                onPressed: () {
 
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    minimumSize: const Size(300, 60),
-                  ),
-                  child: const Text('Tutorial'),
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  minimumSize: const Size(300, 60),
                 ),
+                child: const Text('Tutorial'),
               ),
               const SizedBox(
                 height: 20, // Adjust the height for the desired spacing
               ),
-              Container(
-                child: ElevatedButton(
-                  onPressed: () {
-                    _showAboutUsPopup(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    minimumSize: const Size(300, 60),
-                  ),
-                  child: const Text('About Us'),
+              ElevatedButton(
+                onPressed: () {
+                  _showAboutUsPopup(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  minimumSize: const Size(300, 60),
                 ),
+                child: const Text('About Us'),
               ),
               const SizedBox(
                 height: 20, // Adjust the height for the desired spacing
