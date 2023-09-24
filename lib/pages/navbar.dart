@@ -36,7 +36,7 @@ class _NavState extends State<Nav> {
   @override
   Widget build(BuildContext context) {
 
-    //data = ModalRoute.of(context)!.settings.arguments as Map ;
+    data = ModalRoute.of(context)!.settings.arguments as Map ;
 
     screenHeight = MediaQuery.of(context).size.height;
     screeenWidth = MediaQuery.of(context).size.width;

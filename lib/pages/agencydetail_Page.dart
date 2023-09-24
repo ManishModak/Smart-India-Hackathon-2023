@@ -26,10 +26,10 @@ class _AgencyDetailState extends State<AgencyDetail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Center(
+            const Center(
               child: Text(
-                agencyName.text,
-                style: const TextStyle(
+                "agencyName.text",
+                style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
@@ -82,10 +82,10 @@ class _AgencyDetailState extends State<AgencyDetail> {
               ),
             ),
             const SizedBox(height: 8),
-            Center(
+            const Center(
               child: Text(
-                about.text,
-                style: const TextStyle(
+                'about.text',
+                style: TextStyle(
                   fontSize: 16,
                 ),
               ),

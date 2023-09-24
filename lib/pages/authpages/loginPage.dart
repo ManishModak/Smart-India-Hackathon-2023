@@ -24,9 +24,30 @@ class _LoginPageState extends State<LoginPage> {
   final secureStorage = const FlutterSecureStorage();
 
   void saveLoginInfo() async{
-    await secureStorage.write(key: "AgencyId", value: agencyId.text);
+    await secureStorage.write(key: "AgencyId", value: agencyId.text );
     await secureStorage.write(key: "Password", value: agencyPass.text);
     await secureStorage.write(key: "RememberMe", value: "true");
+  }
+
+  Future<bool> retrieveLoginInfo() async{
+
+    bool retrivalSucess = false ;
+
+    final rememberMe = await secureStorage.read(key: 'RememberMe');
+
+    if(rememberMe == "true") {
+      final id = await secureStorage.read(key: "AgencyId");
+      final password = await secureStorage.read(key: "Password");
+
+      if (id != null && password != null) {
+        setState(() {
+          agencyId.text = id;
+          agencyPass.text = password;
+        });
+        retrivalSucess = true;
+      }
+    }
+    return retrivalSucess;
   }
 
   void nextPage () {
@@ -44,28 +65,33 @@ class _LoginPageState extends State<LoginPage> {
       if(valid == 2){
         setState(() {
           loading = false ;
-          error = "Wrong Password";
+          error = "Incorrect Agency Password";
         });
       }
       else if(valid == 3) {
         setState(() {
           loading = false ;
-          error = "Wrong Id";
+          error = "Incorrect Agency Id";
         });
       }
       else{
+        saveLoginInfo();
         nextPage();
       }
     }
   }
 
-  void retrieveLoginInfo() {
+  Future<void> autoLogin() async {
+    bool valid = await retrieveLoginInfo();
 
+    if(valid) {
+      agencyLogin();
+    }
   }
 
   @override
   void initState() {
-    retrieveLoginInfo();
+    autoLogin();
     super.initState();
   }
 
@@ -142,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.cyan,
                   ),
                   child: ElevatedButton(
-                    onPressed: () => Navigator.pushNamed(context, "/register") ,
+                    onPressed:retrieveLoginInfo, //() => Navigator.pushNamed(context, "/register") ,
                     style: ElevatedButton.styleFrom(
                       backgroundColor:Colors.transparent,
                       elevation: 0,

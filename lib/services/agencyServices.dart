@@ -7,12 +7,17 @@ class AgencyDatabase{
   final LoginDatabase _loginDatabase = LoginDatabase();
 
   Future<void> addAgency({required String id, required String pass,
-    required String name, required String type, required String location}) async {
+    required String name, required String type,
+    required String address, required String location, required locationID,
+    required String description}) async {
 
-    await _firestore.collection("Agency").doc(type).collection("${type}s").doc(id).set({
+    await _firestore.collection("Agency").doc(type).collection("Hinjewadi").doc(id).set({
       "id" : id,
       "name" : name,
       "location" : location,
+      "locationID" : locationID,
+      "address" : address,
+      "description" : description
     });
 
     _loginDatabase.addUser(id: id, pass: pass);

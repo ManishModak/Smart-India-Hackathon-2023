@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:smart_india_hackathon/pages/agencydetail_Page.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,14 +13,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late LatLng _userLocation = const LatLng(0, 0); // Default location
+  late LatLng _userLocation = const LatLng(0, 0);
   GeolocatorPlatform geoLocator = GeolocatorPlatform.instance;
 
   final List<Marker> _markers = [];
   @override
   void initState() {
     _initUserLocation();
-    _initMarkers(); // Initialize custom markers
+    _initMarkers();
     super.initState();
   }
 
@@ -34,49 +35,180 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _initMarkers() async {
-    FirebaseFirestore.instance.collection('locations').get().then((querySnapshot) async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('Agency')
+          .doc('FireStation')
+          .collection('Hinjewadi-phase-1')
+          .get();
+
       Position userPosition = await geoLocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
-      double maxDistance = 1000; // 1 km in meters
+      double maxDistance = 1000;
 
       querySnapshot.docs.forEach((doc) {
-        double latitude = doc['latitude'];
-        double longitude = doc['longitude'];
-        double distance = geoLocator.distanceBetween(
-          userPosition.latitude,
-          userPosition.longitude,
-          latitude,
-          longitude,
-        );
+        if (doc.exists) {
+          String locationString = doc['location'];
 
-        if (distance <= maxDistance) {
-          setState(() {
-            _markers.add(
-              Marker(
-                width: 30.0,
-                height: 30.0,
-                point: LatLng(latitude, longitude),
-                builder: (ctx) => IconButton(
-                  icon: const Icon(Icons.location_on),
-                  color: Colors.red,
-                  iconSize: 30.0,
-                  onPressed: () {
-                    // Handle marker tap here
-                    _showMarkerPopup('Marker 1');
-                  },
-                ),
-              ),
+          List<String> locationParts = locationString.split(',');
+
+          if (locationParts.length == 2) {
+            double latitude = double.parse(locationParts[0]);
+            double longitude = double.parse(locationParts[1]);
+
+            double distance = geoLocator.distanceBetween(
+              userPosition.latitude,
+              userPosition.longitude,
+              latitude,
+              longitude,
             );
-          });
+
+            if (distance <= maxDistance) {
+              setState(() {
+                _markers.add(
+                  Marker(
+                    width: 30.0,
+                    height: 30.0,
+                    point: LatLng(latitude, longitude),
+                    builder: (ctx) => IconButton(
+                      icon: const Icon(Icons.local_fire_department),
+                      color: Colors.red,
+                      iconSize: 30.0,
+                      onPressed: () {
+                        String locationName= doc['name'];
+                        String locationId= doc['locationId'];
+                        _showMarkerPopup(locationName,locationId);
+
+                      },
+                    ),
+                  ),
+                );
+              });
+            }
+          }
         }
       });
-    });
+    } catch (error) {
+      print("Error fetching Firestore data: $error");
+    }
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('Agency')
+          .doc('Medical')
+          .collection('Hinjewadi')
+
+          .get();
+
+      Position userPosition = await geoLocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      double maxDistance = 1000;
+
+      querySnapshot.docs.forEach((doc) {
+        if (doc.exists) {
+          String locationString = doc['location'];
+
+          List<String> locationParts = locationString.split(',');
+
+          if (locationParts.length == 2) {
+            double latitude = double.parse(locationParts[0]);
+            double longitude = double.parse(locationParts[1]);
+
+            double distance = geoLocator.distanceBetween(
+              userPosition.latitude,
+              userPosition.longitude,
+              latitude,
+              longitude,
+            );
+
+            if (distance <= maxDistance) {
+              setState(() {
+                _markers.add(
+                  Marker(
+                    width: 30.0,
+                    height: 30.0,
+                    point: LatLng(latitude, longitude),
+                    builder: (ctx) => IconButton(
+                      icon: const Icon(Icons.local_hospital),
+                      color: Colors.red,
+                      iconSize: 30.0,
+                      onPressed: () {
+                        String locationName= doc['name'];
+                        String locationId= doc['locationId'];
+                        _showMarkerPopup(locationName,locationId);
+                      },
+                    ),
+                  ),
+                );
+              });
+            }
+          }
+        }
+      });
+
+    } catch (error) {
+      print("Error fetching Firestore data: $error");
+    }try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('Agency')
+          .doc('RTO')
+          .collection('RTOs')
+
+          .get();
+
+      Position userPosition = await geoLocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      double maxDistance = 1000;
+
+      querySnapshot.docs.forEach((doc) {
+        if (doc.exists) {
+          String locationString = doc['location'];
+
+          List<String> locationParts = locationString.split(',');
+
+          if (locationParts.length == 2) {
+            double latitude = double.parse(locationParts[0]);
+            double longitude = double.parse(locationParts[1]);
+
+            double distance = geoLocator.distanceBetween(
+              userPosition.latitude,
+              userPosition.longitude,
+              latitude,
+              longitude,
+            );
+
+            if (distance <= maxDistance) {
+              setState(() {
+                _markers.add(
+                  Marker(
+                    width: 30.0,
+                    height: 30.0,
+                    point: LatLng(latitude, longitude),
+                    builder: (ctx) => IconButton(
+                      icon: const Icon(Icons.traffic),
+                      color: Colors.red,
+                      iconSize: 30.0,
+                      onPressed: () {
+                        String locationName= doc['name'];
+                        String locationId= doc['locationId'];
+                        _showMarkerPopup(locationName,locationId);
+                      },
+                    ),
+                  ),
+                );
+              });
+            }
+          }
+        }
+      });
+    } catch (error) {
+      print("Error fetching Firestore data: $error");
+    }
   }
 
-
-  void _showMarkerPopup(String markerTitle) {
-    // Show a popup for the tapped marker
+  void _showMarkerPopup(String markerTitle, String locationId) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -90,11 +222,29 @@ class _HomePageState extends State<HomePage> {
               },
               child: const Text('Close'),
             ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _navigateToOtherPage(locationId);
+              },
+              child: const Text('Go to Details Page'),
+            ),
           ],
         );
       },
     );
   }
+
+  void _navigateToOtherPage(String locationId) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgencyDetailPage(locationId),
+      ),
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {

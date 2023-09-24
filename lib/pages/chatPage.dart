@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Chat extends StatefulWidget {
-  const Chat({Key? key});
+  const Chat({super.key});
 
   @override
   State<Chat> createState() => _ChatState();
@@ -26,7 +26,7 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat'),
+        title: const Text('Chat'),
         centerTitle: true,
       ),
       body: Column(
@@ -55,7 +55,7 @@ class _ChatState extends State<Chat> {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send),
+                  icon: const Icon(Icons.send),
                   onPressed: _sendMessage,
                 ),
               ],
