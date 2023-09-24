@@ -1,11 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:smart_india_hackathon/services/agencyServices.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import 'agencydetail_Page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,49 +16,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late LatLng _userLocation = const LatLng(0, 0);
   GeolocatorPlatform geoLocator = GeolocatorPlatform.instance;
-
   AgencyDatabase agencyDatabase = AgencyDatabase();
-  Future<Widget> getDetails(String id) async {
-    Map<String, dynamic> data = await agencyDatabase.getAgency(id: id);
-    return AlertDialog(
-      title: Text(data["name"]),
-      content: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Text('Address:'),
-            Text(data["address"]),
-            const SizedBox(height: 10),
-            const Text('Description:'),
-            Text(data["description"]),
-            const SizedBox(height: 10),
-            const Text('ID:'),
-            Text(data["id"]),
-            const SizedBox(height: 10),
-            const Text('Location:'),
-            Text(data["location"]),
-            const SizedBox(height: 10),
-            const Text('Name:'),
-            Text(data["name"]),
-          ],
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Close'),
-        ),
-      ],
-    );
-  }
 
   final List<Marker> _markers = [];
+
   @override
   void initState() {
+    super.initState();
     _initUserLocation();
     _initMarkers();
-    super.initState();
   }
 
   Future<void> _initUserLocation() async {
@@ -72,213 +37,112 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _initMarkers() async {
+  Future<void> _initMarkers() async {
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('Agency')
-          .doc('FireStation')
-          .collection('Hinjewadi-phase-1')
-          .get();
-
       Position userPosition = await geoLocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
       double maxDistance = 1000;
 
-      querySnapshot.docs.forEach((doc) {
-        if (doc.exists) {
-          String locationString = doc['location'];
+      final markerTypes = [
+        {'type': 'FireStation', 'icon': Icons.local_fire_department},
+        {'type': 'Medical', 'icon': Icons.local_hospital},
+        {'type': 'PoliceStation', 'icon': Icons.local_police},
+        {'type': 'RTO', 'icon': Icons.traffic},
+      ];
 
-          List<String> locationParts = locationString.split(',');
+      for (final markerType in markerTypes) {
+        QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+            .collection('Agency')
+            .doc(markerType['type'] as String?)
+            .collection('Hinjewadi')
+            .get();
 
-          if (locationParts.length == 2) {
-            double latitude = double.parse(locationParts[0]);
-            double longitude = double.parse(locationParts[1]);
+        querySnapshot.docs.forEach((doc) {
+          if (doc.exists) {
+            String locationString = doc['location'];
 
-            double distance = geoLocator.distanceBetween(
-              userPosition.latitude,
-              userPosition.longitude,
-              latitude,
-              longitude,
-            );
+            List<String> locationParts = locationString.split(',');
 
-            if (distance <= maxDistance) {
-              setState(() {
-                _markers.add(
-                  Marker(
-                    width: 30.0,
-                    height: 30.0,
-                    point: LatLng(latitude, longitude),
-                    builder: (ctx) => IconButton(
-                      icon: const Icon(Icons.local_fire_department),
-                      color: Colors.red,
-                      iconSize: 30.0,
-                      onPressed: () {
-                        String locationName= doc['name'];
-                        String locationId= doc['locationId'];
-                        _showMarkerPopup(locationName,locationId);
+            if (locationParts.length == 2) {
+              double latitude = double.parse(locationParts[0]);
+              double longitude = double.parse(locationParts[1]);
 
-                      },
+              double distance = geoLocator.distanceBetween(
+                userPosition.latitude,
+                userPosition.longitude,
+                latitude,
+                longitude,
+              );
+
+              if (distance <= maxDistance) {
+                setState(() {
+                  _markers.add(
+                    Marker(
+                      width: 30.0,
+                      height: 30.0,
+                      point: LatLng(latitude, longitude),
+                      builder: (ctx) => IconButton(
+                        icon: Icon(markerType['icon'] as IconData?),
+                        color: Colors.red,
+                        iconSize: 30.0,
+                        onPressed: () {
+                          String locationName = doc['name'];
+                          String id = doc['id'];
+                          _showMarkerPopup(locationName, id);
+                        },
+                      ),
                     ),
-                  ),
-                );
-              });
+                  );
+                });
+              }
             }
           }
-        }
-      });
-    } catch (error) {
-      print("Error fetching Firestore data: $error");
-    }
-    try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('Agency')
-          .doc('Medical')
-          .collection('Hinjewadi')
-
-          .get();
-
-      Position userPosition = await geoLocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-      );
-      double maxDistance = 1000;
-
-      querySnapshot.docs.forEach((doc) {
-        if (doc.exists) {
-          String locationString = doc['location'];
-
-          List<String> locationParts = locationString.split(',');
-
-          if (locationParts.length == 2) {
-            double latitude = double.parse(locationParts[0]);
-            double longitude = double.parse(locationParts[1]);
-
-            double distance = geoLocator.distanceBetween(
-              userPosition.latitude,
-              userPosition.longitude,
-              latitude,
-              longitude,
-            );
-
-            if (distance <= maxDistance) {
-              setState(() {
-                _markers.add(
-                  Marker(
-                    width: 30.0,
-                    height: 30.0,
-                    point: LatLng(latitude, longitude),
-                    builder: (ctx) => IconButton(
-                      icon: const Icon(Icons.local_hospital),
-                      color: Colors.red,
-                      iconSize: 30.0,
-                      onPressed: () {
-                        String locationName= doc['name'];
-                        String locationId= doc['locationId'];
-                        _showMarkerPopup(locationName,locationId);
-                      },
-                    ),
-                  ),
-                );
-              });
-            }
-          }
-        }
-      });
-
-    } catch (error) {
-      print("Error fetching Firestore data: $error");
-    }try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('Agency')
-          .doc('RTO')
-          .collection('RTOs')
-
-          .get();
-
-      Position userPosition = await geoLocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-      );
-      double maxDistance = 1000;
-
-      querySnapshot.docs.forEach((doc) {
-        if (doc.exists) {
-          String locationString = doc['location'];
-
-          List<String> locationParts = locationString.split(',');
-
-          if (locationParts.length == 2) {
-            double latitude = double.parse(locationParts[0]);
-            double longitude = double.parse(locationParts[1]);
-
-            double distance = geoLocator.distanceBetween(
-              userPosition.latitude,
-              userPosition.longitude,
-              latitude,
-              longitude,
-            );
-
-            if (distance <= maxDistance) {
-              setState(() {
-                _markers.add(
-                  Marker(
-                    width: 30.0,
-                    height: 30.0,
-                    point: LatLng(latitude, longitude),
-                    builder: (ctx) => IconButton(
-                      icon: const Icon(Icons.traffic),
-                      color: Colors.red,
-                      iconSize: 30.0,
-                      onPressed: () {
-                        String locationName= doc['name'];
-                        String locationId= doc['locationId'];
-                        _showMarkerPopup(locationName,locationId);
-                      },
-                    ),
-                  ),
-                );
-              });
-            }
-          }
-        }
-      });
+        });
+      }
     } catch (error) {
       print("Error fetching Firestore data: $error");
     }
   }
 
-  void _showMarkerPopup(String markerTitle, String locationId) {
+  void _showMarkerPopup(String markerTitle, String id) async {
+    Map<String, dynamic> data = await agencyDatabase.getAgency(id: id);
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return CupertinoAlertDialog(
           title: Text(markerTitle),
-          content: const Text("This is a custom marker popup."),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                const Text('Address:'),
+                Text(data["address"]),
+                const SizedBox(height: 10),
+                const Text('Description:'),
+                Text(data["description"]),
+                const SizedBox(height: 10),
+                const Text('ID:'),
+                Text(data["id"]),
+                const SizedBox(height: 10),
+                const Text('Location:'),
+                Text(data["location"]),
+                const SizedBox(height: 10),
+                const Text('Name:'),
+                Text(data["name"]),
+              ],
+            ),
+          ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Close'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                _navigateToOtherPage(locationId);
-              },
-              child: const Text('Go to Details Page'),
+              child: Text('Close'),
             ),
           ],
         );
       },
-    );
-  }
-
-  void _navigateToOtherPage(String locationId) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AgencyDetail(locationId),
-      ),
     );
   }
 
@@ -304,7 +168,8 @@ class _HomePageState extends State<HomePage> {
               ),
               children: [
                 TileLayer(
-                  urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                  urlTemplate:
+                  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                   subdomains: const ['a', 'b', 'c'],
                 ),
                 MarkerLayer(
@@ -320,7 +185,6 @@ class _HomePageState extends State<HomePage> {
                         size: 30.0,
                       ),
                     ),
-
                     ..._markers,
                   ],
                 ),
