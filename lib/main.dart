@@ -9,13 +9,17 @@ import 'package:smart_india_hackathon/pages/authpages/loginPage.dart';
 import 'package:smart_india_hackathon/pages/navbar.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'services/agencyServices.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  AgencyDatabase agencyDatabase = AgencyDatabase();
+  agencyDatabase.addAgency(id: "U22", pass: "22", name: "Vector Hospital", type: "FireStation",
+      address: "HPPM+3RF, Phase 1, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Hinjewadi, Pimpri-Chinchwad, Maharashtra 411057",
+      location: "18.586045322069047, 73.73495023819287", locationID: "F443", description: "A governmental agency");
   runApp(const MyApp());
 }
 
