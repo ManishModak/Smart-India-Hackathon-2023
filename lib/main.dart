@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/search': (context) => const Search(),
         '/chat': (context) => const Chat(),
-        '/agencydetail':(context) =>  const AgencyDetail(),
+        '/agencydetail':(context) =>  const ResourcesPage(),
         '/help':(context) => const Help(),
         '/Nav':(context) => const Nav()
       },

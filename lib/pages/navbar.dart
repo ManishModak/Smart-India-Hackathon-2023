@@ -46,7 +46,7 @@ class _NavState extends State<Nav> {
           index: currentIndex,
           children: const [
             Help(),
-            AgencyDetail(),
+            ResourcesPage(),
             HomePage(),
             Search(),
             Chat(),
