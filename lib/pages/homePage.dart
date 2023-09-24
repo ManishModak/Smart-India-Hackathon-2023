@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:smart_india_hackathon/pages/agencydetail_Page.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:smart_india_hackathon/services/agencyServices.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'agencydetail_Page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -280,8 +281,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {

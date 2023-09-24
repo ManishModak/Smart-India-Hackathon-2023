@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_india_hackathon/pages/agencydetail_Page.dart';
 import 'package:smart_india_hackathon/pages/authpages/registerPage.dart';
+import 'package:smart_india_hackathon/pages/authpages/successPage.dart';
 import 'package:smart_india_hackathon/pages/helpPage.dart';
 import 'package:smart_india_hackathon/pages/homePage.dart';
 import 'package:smart_india_hackathon/pages/searchPage.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
 
       initialRoute: '/login',
       routes: {
+        '/success' : (context) => const SuccessPage(),
         '/register': (context) => const RegisterPage(),
         '/login': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),

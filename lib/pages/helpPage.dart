@@ -8,8 +8,8 @@ class Help extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('About Us'),
-          content: SingleChildScrollView(
+          title: const Text('About Us'),
+          content: const SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -30,7 +30,7 @@ class Help extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop(); // Close the popup.
               },
-              child: Text('Close'),
+              child: const Text('Close'),
             ),
           ],
         );
@@ -43,8 +43,8 @@ class Help extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Contact details:'),
-          content: SingleChildScrollView(
+          title: const Text('Contact details:'),
+          content: const SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -62,7 +62,7 @@ class Help extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop(); // Close the popup.
               },
-              child: Text('Close'),
+              child: const Text('Close'),
             ),
           ],
         );
@@ -88,13 +88,13 @@ class Help extends StatelessWidget {
 
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    minimumSize: Size(300, 60),
+                    backgroundColor: Colors.black,
+                    minimumSize: const Size(300, 60),
                   ),
-                  child: Text('Tutorial'),
+                  child: const Text('Tutorial'),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20, // Adjust the height for the desired spacing
               ),
               Container(
@@ -103,13 +103,13 @@ class Help extends StatelessWidget {
                     _showAboutUsPopup(context);
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    minimumSize: Size(300, 60),
+                    backgroundColor: Colors.black,
+                    minimumSize: const Size(300, 60),
                   ),
-                  child: Text('About Us'),
+                  child: const Text('About Us'),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20, // Adjust the height for the desired spacing
               ),
               Container(
@@ -118,13 +118,13 @@ class Help extends StatelessWidget {
                     _contactdetailsPopup(context);
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    minimumSize: Size(300, 60),
+                    backgroundColor: Colors.black,
+                    minimumSize: const Size(300, 60),
                   ),
-                  child: Text('Contact Details'),
+                  child: const Text('Contact Details'),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20, // Adjust the height for the desired spacing
               ),
               Container(
@@ -133,10 +133,10 @@ class Help extends StatelessWidget {
 
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    minimumSize: Size(300, 60),
+                    backgroundColor: Colors.black,
+                    minimumSize: const Size(300, 60),
                   ),
-                  child: Text('Feedback'),
+                  child: const Text('Feedback'),
                 ),
               ),
             ],

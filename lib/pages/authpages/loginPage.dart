@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<bool> retrieveLoginInfo() async{
 
-    bool retrivalSucess = false ;
+    bool retrievalSuccess = false ;
 
     final rememberMe = await secureStorage.read(key: 'RememberMe');
 
@@ -44,10 +44,10 @@ class _LoginPageState extends State<LoginPage> {
           agencyId.text = id;
           agencyPass.text = password;
         });
-        retrivalSucess = true;
+        retrievalSuccess = true;
       }
     }
-    return retrivalSucess;
+    return retrievalSuccess;
   }
 
   void nextPage () {
@@ -168,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.cyan,
                   ),
                   child: ElevatedButton(
-                    onPressed:retrieveLoginInfo, //() => Navigator.pushNamed(context, "/register") ,
+                    onPressed: () => Navigator.pushNamed(context, "/register") ,
                     style: ElevatedButton.styleFrom(
                       backgroundColor:Colors.transparent,
                       elevation: 0,
