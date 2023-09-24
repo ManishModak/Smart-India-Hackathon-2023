@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_india_hackathon/pages/agencydetail_Page.dart';
+import 'package:smart_india_hackathon/pages/resourcesPage.dart';
 import 'package:smart_india_hackathon/pages/authpages/registerPage.dart';
 import 'package:smart_india_hackathon/pages/authpages/successPage.dart';
 import 'package:smart_india_hackathon/pages/helpPage.dart';
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/search': (context) => const Search(),
         '/chat': (context) => const Chat(),
-        '/agencydetail':(context) =>  AgencyDetail(String as String),
+        '/agencydetail':(context) =>  const AgencyDetail(),
         '/help':(context) => const Help(),
         '/Nav':(context) => const Nav()
       },

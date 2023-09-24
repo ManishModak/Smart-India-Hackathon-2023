@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AgencyDetail extends StatefulWidget {
-  const AgencyDetail(String locationId, {super.key});
+  const AgencyDetail({super.key});
 
   @override
   State<AgencyDetail> createState() => _AgencyDetailState();

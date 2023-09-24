@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smart_india_hackathon/pages/searchPage.dart';
-import 'agencydetail_Page.dart';
+import 'resourcesPage.dart';
 import 'chatPage.dart';
 import 'helpPage.dart';
 import 'homePage.dart';
@@ -46,7 +46,7 @@ class _NavState extends State<Nav> {
           index: currentIndex,
           children: const [
             Help(),
-            //AgencyDetail(),
+            AgencyDetail(),
             HomePage(),
             Search(),
             Chat(),
