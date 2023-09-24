@@ -1,0 +1,11 @@
+Agency name
+Agency type
+Agency location(address)
+Agency id(Unique)
+
+Types:
+hospital
+fireStation
+Police
+RTO
+

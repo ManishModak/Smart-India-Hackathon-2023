@@ -19,25 +19,32 @@ class _NavState extends State<Nav> {
 
   Color primary = const Color(0xffeef4444c);
 
-  int currentIndex = 0;
+  int currentIndex = 2;
 
   List<IconData> navigationIcons = [
-    FontAwesomeIcons.question,
-    FontAwesomeIcons.resolving,
-    FontAwesomeIcons.home,
-    FontAwesomeIcons.search,
+
+    FontAwesomeIcons.circleQuestion,
+    FontAwesomeIcons.folder,
+    FontAwesomeIcons.house,
+    FontAwesomeIcons.magnifyingGlass,
     FontAwesomeIcons.comment,
   ];
 
+  late final String agencyId ;
+  Map data = {} ;
+
   @override
   Widget build(BuildContext context) {
+
+    //data = ModalRoute.of(context)!.settings.arguments as Map ;
+
     screenHeight = MediaQuery.of(context).size.height;
     screeenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
         body: IndexedStack(
           index: currentIndex,
-          children: [
+          children: const [
             Help(),
             AgencyDetail(),
             HomePage(),
@@ -48,7 +55,7 @@ class _NavState extends State<Nav> {
 
         bottomNavigationBar: Container(
           height: 70,
-          margin: EdgeInsets.only(
+          margin: const EdgeInsets.only(
             left: 12,
             right: 12,
             bottom: 24,
@@ -72,27 +79,26 @@ class _NavState extends State<Nav> {
               children: [
                 for(int i = 0 ;i<navigationIcons.length;i++)...<Expanded>{
                   Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            currentIndex = i;
-                          });
-                        },
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                navigationIcons[i],
-                                color: i == currentIndex ? primary : Colors.black26,
-                              ),
-                            ],
-                          ),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          currentIndex = i;
+                        });
+                      },
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              navigationIcons[i],
+                              color: i == currentIndex ? primary : Colors.teal,
+                            ),
+                          ],
                         ),
-                      )
+                      ),
+                    )
                   )
                 }
-
               ],
             ),
           ),
