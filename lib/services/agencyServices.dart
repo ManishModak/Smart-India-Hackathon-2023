@@ -12,7 +12,10 @@ class AgencyDatabase {
 
     for (var type in types) {
 
-      CollectionReference collectionReference = _firestore.collection("Agency").doc(type).collection("Hinjewadi");
+      CollectionReference collectionReference = _firestore.collection("Agency")
+          .doc(type)
+          .collection("Hinjewadi");
+
       QuerySnapshot querySnapshot = await collectionReference.get();
 
       for (var agency in querySnapshot.docs) {
@@ -54,7 +57,12 @@ class AgencyDatabase {
 
     String id = await _generateID();
 
-    await _firestore.collection("Agency").doc(type).collection("Hinjewadi").doc(id).set({
+    await _firestore
+        .collection("Agency")
+        .doc(type)
+        .collection("Hinjewadi")
+        .doc(id)
+        .set({
       "id" : id,
       "name" : name,
       "location" : location,
@@ -75,7 +83,11 @@ class AgencyDatabase {
 
       for (var type in types) {
 
-        CollectionReference collectionReference = _firestore.collection("Agency").doc(type).collection("Hinjewadi");
+        CollectionReference collectionReference = _firestore
+            .collection("Agency")
+            .doc(type)
+            .collection("Hinjewadi");
+
         QuerySnapshot querySnapshot = await collectionReference.get();
 
         for (var agency in querySnapshot.docs) {

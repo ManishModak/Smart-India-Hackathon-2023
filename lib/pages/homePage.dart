@@ -17,8 +17,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late LatLng _userLocation = const LatLng(0, 0);
   GeolocatorPlatform geoLocator = GeolocatorPlatform.instance;
-  AgencyDatabase agencyDatabase = AgencyDatabase();
 
+  AgencyDatabase agencyDatabase = AgencyDatabase();
   Future<Widget> getDetails(String id) async {
     Map<String, dynamic> data = await agencyDatabase.getAgency(id: id);
     return AlertDialog(
@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Close'),
+          child: const Text('Close'),
         ),
       ],
     );
