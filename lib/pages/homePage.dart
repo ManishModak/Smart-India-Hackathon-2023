@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
       Position userPosition = await geoLocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
-      double maxDistance = 3000;
+      double maxDistance = 5000;
 
       final markerTypes = [
         {'type': 'FireStation', 'icon': Icons.local_fire_department},
@@ -181,7 +181,7 @@ class _HomePageState extends State<HomePage> {
             child: FlutterMap(
               options: MapOptions(
                 center: _userLocation,
-                zoom: 14.0,
+                zoom: 13.0,
                 maxZoom: 18.0,
               ),
               children: [

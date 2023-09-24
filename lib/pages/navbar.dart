@@ -29,22 +29,24 @@ class _NavState extends State<Nav> {
     FontAwesomeIcons.circleQuestion,
   ];
 
-  late final String agencyId;
-  Map data = {};
+  late String _id ;
+  Map data = {} ;
 
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context)!.settings.arguments as Map;
+
+    data = ModalRoute.of(context)!.settings.arguments as Map ;
+    _id = data["agencyId"] ;
 
     screenHeight = MediaQuery.of(context).size.height;
     screeenWidth = MediaQuery.of(context).size.width;
 
     List<Widget> screens = [
-      ResourcesPage(),
-      Search(),
-      HomePage(),
-      ChatPage(),
-      Help(),
+      ResourcesPage(agencyId: _id,),
+      const Search(),
+      const HomePage(),
+      const ChatPage(),
+      const Help(),
     ];
 
     return Scaffold(
@@ -112,8 +114,8 @@ class _NavState extends State<Nav> {
               ),
             ),
           ),
-        ],
-      ),
+        ]
+      )
     );
   }
 }
