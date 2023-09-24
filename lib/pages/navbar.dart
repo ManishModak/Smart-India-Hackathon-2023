@@ -40,7 +40,7 @@ class _NavState extends State<Nav> {
           children: [
             Help(),
             AgencyDetail(),
-            Home(),
+            HomePage(),
             Search(),
             Chat(),
           ],
