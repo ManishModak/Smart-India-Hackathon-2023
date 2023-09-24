@@ -16,10 +16,6 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  AgencyDatabase agencyDatabase = AgencyDatabase();
-  agencyDatabase.addAgency(pass: "22", name: "Vector Hospital", type: "FireStation",
-      address: "HPPM+3RF, Phase 1, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Hinjewadi, Pimpri-Chinchwad, Maharashtra 411057",
-      location: "18.586045322069047, 73.73495023819287", description: "A governmental agency");
   runApp(const MyApp());
 }
 
