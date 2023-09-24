@@ -1,23 +1,66 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 
 import 'authServices.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AgencyDatabase{
+class AgencyDatabase {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final LoginDatabase _loginDatabase = LoginDatabase();
 
-  Future<void> addAgency({required String id, required String pass,
+  Future<bool> isIDPresent({required String id}) async {
+    List<String> types = ["FireStation", "PoliceStation", "Medical", "RTO"];
+
+    for (var type in types) {
+
+      CollectionReference collectionReference = _firestore.collection("Agency").doc(type).collection("Hinjewadi");
+      QuerySnapshot querySnapshot = await collectionReference.get();
+
+      for (var agency in querySnapshot.docs) {
+        if (agency.id == id) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  Future<String> _generateID() async {
+    String id;
+
+    do {
+      final random = Random();
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const numbers = '0987654321';
+      final stringBuffer = StringBuffer();
+
+      // Generate a random alphabet character.
+      stringBuffer.write(characters[random.nextInt(26)]);
+
+      // Generate random number characters.
+      for (var i = 1; i < 5; i++) {
+        stringBuffer.write(numbers[random.nextInt(10)]);
+      }
+
+      id = stringBuffer.toString();
+
+    } while (await isIDPresent(id: id));
+    return id;
+  }
+
+  Future<void> addAgency({required String pass,
     required String name, required String type,
     required String address, required String location, required locationID,
     required String description}) async {
 
-    await _firestore.collection("Agency").doc(type).collection("Hinjewadi").doc(locationID).set({
+    String id = await _generateID();
+
+    await _firestore.collection("Agency").doc(type).collection("Hinjewadi").doc(id).set({
       "id" : id,
       "name" : name,
       "location" : location,
-      "locationID" : locationID,
       "address" : address,
       "description" : description
     });
@@ -28,27 +71,22 @@ class AgencyDatabase{
 
   Future<Map<String, dynamic>> getAgency({required id}) async {
 
-    QuerySnapshot querySnapshot = await _firestore.collection("Agency").get();
-    Map<String, dynamic> data = {};
-    for (var type in querySnapshot.docs){
-      if (kDebugMode){
-        Map<String, dynamic> data = type.data() as Map<String, dynamic>;
+    if (await isIDPresent(id: id)) {
+
+      List<String> types = ["FireStation", "PoliceStation", "Medical", "RTO"];
+
+      for (var type in types) {
+
+        CollectionReference collectionReference = _firestore.collection("Agency").doc(type).collection("Hinjewadi");
+        QuerySnapshot querySnapshot = await collectionReference.get();
+
+        for (var agency in querySnapshot.docs) {
+          if (agency.id == id) {
+            return agency.data() as Map<String, dynamic>;
+          }
+        }
       }
     }
-
-
-    // QuerySnapshot querySnapshot = await _firestore.collection("Agency").get();
-    // Map<String ,dynamic> data = {};
-    // for (var type in querySnapshot.docs) {
-    //   QuerySnapshot agencies = await type.get("${type.id} + s");
-    //   for (var agency in agencies.docs) {
-    //     data = agency.data() as Map<String, dynamic>;
-    //     if (data["id"] == id) {
-    //       return data;
-    //     }
-    //   }
-    // }
-    // return data;
+    return {};
   }
-
 }
