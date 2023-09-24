@@ -165,6 +165,7 @@ class _HomePageState extends State<HomePage> {
               options: MapOptions(
                 center: _userLocation,
                 zoom: 13.0,
+                maxZoom: 18.0,
               ),
               children: [
                 TileLayer(

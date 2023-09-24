@@ -22,12 +22,11 @@ class _NavState extends State<Nav> {
   int currentIndex = 2;
 
   List<IconData> navigationIcons = [
-
-    FontAwesomeIcons.circleQuestion,
     FontAwesomeIcons.folder,
-    FontAwesomeIcons.house,
     FontAwesomeIcons.magnifyingGlass,
+    FontAwesomeIcons.house,
     FontAwesomeIcons.comment,
+    FontAwesomeIcons.circleQuestion,
   ];
 
   late final String agencyId ;
@@ -45,11 +44,11 @@ class _NavState extends State<Nav> {
         body: IndexedStack(
           index: currentIndex,
           children: const [
-            Help(),
             AgencyDetail(),
-            HomePage(),
             Search(),
+            HomePage(),
             Chat(),
+            Help(),
           ],
         ),
 
