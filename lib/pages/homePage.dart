@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
       Position userPosition = await geoLocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
-      double maxDistance = 1000;
+      double maxDistance = 3000;
 
       final markerTypes = [
         {'type': 'FireStation', 'icon': Icons.local_fire_department},
@@ -164,7 +164,7 @@ class _HomePageState extends State<HomePage> {
             child: FlutterMap(
               options: MapOptions(
                 center: _userLocation,
-                zoom: 13.0,
+                zoom: 14.0,
                 maxZoom: 18.0,
               ),
               children: [
@@ -173,6 +173,7 @@ class _HomePageState extends State<HomePage> {
                   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                   subdomains: const ['a', 'b', 'c'],
                 ),
+
                 MarkerLayer(
                   markers: [
                     // Add the user's location marker

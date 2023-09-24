@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Chat extends StatefulWidget {
-  const Chat({super.key});
+class ChatPage extends StatefulWidget {
+  const ChatPage({Key? key}) : super(key: key);
 
   @override
-  State<Chat> createState() => _ChatState();
+  _ChatPageState createState() => _ChatPageState();
 }
 
-class _ChatState extends State<Chat> {
-  final List<String> messages = [];
+class _ChatPageState extends State<ChatPage> {
+  final List<Map<String, dynamic>> messages = [];
 
   TextEditingController messageController = TextEditingController();
 
@@ -16,7 +16,10 @@ class _ChatState extends State<Chat> {
     final message = messageController.text;
     if (message.isNotEmpty) {
       setState(() {
-        messages.add(message);
+        messages.add({
+          'text': message,
+          'isMe': true, // Indicates whether it's an outgoing message
+        });
         messageController.clear();
       });
     }
@@ -35,15 +38,29 @@ class _ChatState extends State<Chat> {
             child: ListView.builder(
               itemCount: messages.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(messages[index]),
+                final message = messages[index];
+                return Align(
+                  alignment: message['isMe'] ? Alignment.centerRight : Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: message['isMe'] ? Colors.blue : Colors.grey,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        message['text'],
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
                 );
               },
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 100),
-
+            padding: const EdgeInsets.all(8.0),
             child: Row(
               children: <Widget>[
                 Expanded(

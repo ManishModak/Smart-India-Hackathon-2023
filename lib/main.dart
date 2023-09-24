@@ -35,8 +35,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
         '/search': (context) => const Search(),
-        '/chat': (context) => const Chat(),
-        '/agencydetail':(context) =>  const ResourcesPage(),
+        '/chat': (context) => const ChatPage(),
+        '/ResourcesPage':(context) =>  const ResourcesPage(),
         '/help':(context) => const Help(),
         '/Nav':(context) => const Nav()
       },

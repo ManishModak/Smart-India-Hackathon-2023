@@ -44,10 +44,10 @@ class _NavState extends State<Nav> {
         body: IndexedStack(
           index: currentIndex,
           children: const [
-            AgencyDetail(),
+            ResourcesPage(),
             Search(),
             HomePage(),
-            Chat(),
+            ChatPage(),
             Help(),
           ],
         ),
