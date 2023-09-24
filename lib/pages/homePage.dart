@@ -105,19 +105,10 @@ class _HomePageState extends State<HomePage> {
       print("Error fetching Firestore data: $error");
     }
   }
-  void _makePhoneCall(String phoneNumber) async {
-    final url = 'tel:$phoneNumber';
-    if (await canLaunchUrl(url as Uri)) {
-      await launchUrl(url as Uri);
-    } else {
-      // Handle error: Could not launch the phone app.
-      // You can display an error message to the user.
-    }
-  }
 
   void _showMarkerPopup(String markerTitle, String id) async {
     Map<String, dynamic> data = await agencyDatabase.getAgency(id: id);
-    String phoneNumber = data["phone"]; // Replace 'phone' with the actual field name in your database
+    String phoneNumber = data["phone"];
 
     showDialog(
       context: context,
@@ -152,8 +143,13 @@ class _HomePageState extends State<HomePage> {
               child: Text('Close'),
             ),
             ElevatedButton.icon(
-              onPressed: () {
-                _makePhoneCall(phoneNumber);
+              onPressed: () async {
+                final Uri url = 'tel:$phoneNumber' as Uri;
+                if (await canLaunchUrl(url as Uri)) {
+                await launchUrl(url as Uri);
+                } else {
+
+                }
               },
               icon: Icon(Icons.call),
               label: Text('Call'),
