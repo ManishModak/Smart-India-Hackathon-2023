@@ -40,16 +40,18 @@ class _NavState extends State<Nav> {
     screenHeight = MediaQuery.of(context).size.height;
     screeenWidth = MediaQuery.of(context).size.width;
 
+    List<Widget> screens = [
+      ResourcesPage(),
+      Search(),
+      HomePage(),
+      ChatPage(),
+      Help(),
+    ];
+
     return Scaffold(
         body: IndexedStack(
           index: currentIndex,
-          children: const [
-            ResourcesPage(),
-            Search(),
-            HomePage(),
-            ChatPage(),
-            Help(),
-          ],
+          children: screens,
         ),
 
         bottomNavigationBar: Container(
