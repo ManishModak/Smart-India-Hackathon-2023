@@ -10,7 +10,6 @@ import 'package:smart_india_hackathon/pages/authpages/loginPage.dart';
 import 'package:smart_india_hackathon/pages/navbar.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'services/agencyServices.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

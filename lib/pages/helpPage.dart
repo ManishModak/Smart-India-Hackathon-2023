@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Help extends StatelessWidget {
-  const Help({super.key, Key});
+  const Help({super.key});
 
   void _showAboutUsPopup(BuildContext context) {
     showDialog(
@@ -108,32 +108,28 @@ class Help extends StatelessWidget {
               const SizedBox(
                 height: 20, // Adjust the height for the desired spacing
               ),
-              Container(
-                child: ElevatedButton(
-                  onPressed: () {
-                    _contactdetailsPopup(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    minimumSize: const Size(300, 60),
-                  ),
-                  child: const Text('Contact Details'),
+              ElevatedButton(
+                onPressed: () {
+                  _contactdetailsPopup(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  minimumSize: const Size(300, 60),
                 ),
+                child: const Text('Contact Details'),
               ),
               const SizedBox(
                 height: 20, // Adjust the height for the desired spacing
               ),
-              Container(
-                child: ElevatedButton(
-                  onPressed: () {
+              ElevatedButton(
+                onPressed: () {
 
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    minimumSize: const Size(300, 60),
-                  ),
-                  child: const Text('Feedback'),
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  minimumSize: const Size(300, 60),
                 ),
+                child: const Text('Feedback'),
               ),
             ],
           ),
