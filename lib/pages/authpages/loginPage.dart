@@ -123,6 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                     fontSize: 20,
                     letterSpacing: 1.25
                   ),
+                  obscureText:true,
                   decoration: textInputDecoration.copyWith(hintText: "Agency Password"),
                   validator: (val) => val == null || val.isEmpty ? "Enter Agency Password" : null ,
                   controller: agencyPass,

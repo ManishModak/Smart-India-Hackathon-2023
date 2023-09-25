@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smart_india_hackathon/services/agencyServices.dart';
 
 class ResourcesPage extends StatefulWidget {
@@ -27,8 +28,6 @@ class _ResourcesPageState extends State<ResourcesPage> {
 
   Future<void> getInfo() async {
     data = await agencyDatabase.getAgency(id: widget.agencyId);
-
-    // Update the text controllers with the fetched data
     name.text = data["name"];
     address.text = data["address"];
     phone.text = data["phone"];
@@ -41,42 +40,51 @@ class _ResourcesPageState extends State<ResourcesPage> {
       appBar: AppBar(
         title: const Center(child: Text('Resources')),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Agency Name
-            const Text(
-              "Agency Name:",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(name.text),
-            const SizedBox(height: 16.0),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
+                children: [
+                  Text(
+                    "Agency Name:",
+                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                  ),
+                  Icon(FontAwesomeIcons.penToSquare)
+                ],
+              ),
+              const SizedBox(height: 10.0),
+              Text(name.text),
+              const SizedBox(height: 19.0),
 
-            // Agency No
-            const Text(
-              "Agency No:",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(phone.text),
-            const SizedBox(height: 16.0),
 
-            // Agency Address
-            const Text(
-              "Agency Address:",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(address.text),
-            const SizedBox(height: 16.0),
+              const Text(
+                "Agency Phone No:",
+                style: TextStyle(fontSize:20 ,fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10.0),
+              Text(phone.text),
+              const SizedBox(height: 19.0),
 
-            // Agency Description
-            const Text(
-              "Agency Description:",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(about.text),
-          ],
+              const Text(
+                "Agency Address:",
+                style: TextStyle(fontSize:20,fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10.0),
+              Text(address.text),
+              const SizedBox(height: 19.0),
+
+              // Agency Description
+              const Text(
+                "Agency Description:",
+                style: TextStyle(fontSize:20,fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8.0),
+              Text(about.text),
+            ],
+          ),
         ),
       ),
     );
