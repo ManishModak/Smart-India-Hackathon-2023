@@ -53,7 +53,7 @@ class AgencyDatabase {
   Future<String> addAgency({required String pass,
     required String name, required String type,
     required String address, required String location,
-    required String description}) async {
+    required String description, required String phone}) async {
 
     String id = await _generateID();
 
@@ -67,7 +67,8 @@ class AgencyDatabase {
       "name" : name,
       "location" : location,
       "address" : address,
-      "description" : description
+      "description" : description,
+      "phone" : phone
     });
 
     _loginDatabase.addUser(id: id, pass: pass);
