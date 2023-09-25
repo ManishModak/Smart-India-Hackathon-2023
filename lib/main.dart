@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
 
-      initialRoute: '/login',
+
+X      initialRoute: '/login',
       routes: {
         '/success' : (context) => const SuccessPage(),
         '/register': (context) => const RegisterPage(),
