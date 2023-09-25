@@ -43,7 +43,7 @@ class _RegisterPageState extends State<RegisterPage> {
           type: dropDownValue,
           address: agencyAddress.text,
           location: agencyLocation.text,
-          description: agencyDescription.text
+          description: agencyDescription.text,
       );
 
       if(temp != 'empty') {
