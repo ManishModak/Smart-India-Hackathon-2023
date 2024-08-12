@@ -1,9 +1,3 @@
-To create a comprehensive README for your Flutter application on GitHub, follow the structure below. This guide includes sections for describing the application, setting up the environment, and adding app screenshots. 
-
-### Sample README Structure for a Flutter Application
-
----
-
 # Smart India Hackathon - Rescue Coordination Application
 
 ## Overview
