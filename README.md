@@ -15,20 +15,25 @@ This Flutter application is designed to help rescue agencies coordinate their ef
 
 ## Screenshots
 
-<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-    <div>
-        <img src="./Screenshots/home_page.jpg" width="250" alt="Home Page">
-        <p style="text-align: center;"><strong>Home Page</strong></p>
-    </div>
-    <div>
-        <img src="./Screenshots/login_page.jpg" width="250" alt="Login Page">
-        <p style="text-align: center;"><strong>Login Page</strong></p>
-    </div>
-    <div>
-        <img src="./Screenshots/help_page.jpg" width="250" alt="Help Page">
-        <p style="text-align: center;"><strong>Help Page</strong></p>
-    </div>
-</div>
+<table>
+<tr>
+<td style="text-align: center;">
+<img src="./Screenshots/home_page.jpg" width="200" alt="Home Page">
+<p><strong>Home Page</strong></p>
+</td>
+<td style="text-align: center;">
+<img src="./Screenshots/login_page.jpg" width="200" alt="Login Page">
+<p><strong>Login Page</strong></p>
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+<img src="./Screenshots/help_page.jpg" width="200" alt="Help Page">
+<p><strong>Help Page</strong></p>
+</td>
+<td></td>
+</tr>
+</table>
 
 ## Getting Started
 
