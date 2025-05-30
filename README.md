@@ -49,7 +49,7 @@ This Flutter application is designed to help rescue agencies coordinate their ef
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/Smart-India-Hackathon-2023.git
+   git clone https://github.com/ManishModak/Smart-India-Hackathon-2023.git
    cd Smart-India-Hackathon-2023
    ```
 
@@ -128,6 +128,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contact
 
 For any queries or support, please reach out to:
-- Project Maintainer: [Your Name]
-- Email: [Your Email]
-- GitHub: [Your GitHub Profile]
+- Project Maintainer: Manish Modak
+- Email: manishmodak90@gmail.com
+- GitHub: github.com/ManishModak
