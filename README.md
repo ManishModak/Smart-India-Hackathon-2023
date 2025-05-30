@@ -16,13 +16,13 @@ This Flutter application is designed to help rescue agencies coordinate their ef
 ## Screenshots
 
 ### Home Page
-![Home Page](./Screenshots/home_page.jpg)
+<img src="./Screenshots/home_page.jpg" width="300" alt="Home Page">
 
 ### Login Page
-![Login Page](./Screenshots/login_page.jpg)
+<img src="./Screenshots/login_page.jpg" width="300" alt="Login Page">
 
 ### Help Page
-![Help Page](./Screenshots/help_page.jpg)
+<img src="./Screenshots/help_page.jpg" width="300" alt="Help Page">
 
 ## Getting Started
 
